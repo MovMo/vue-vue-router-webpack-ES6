@@ -12,7 +12,7 @@ var plugins = [
 		dry: false
 	}),
 	//将样式统一发布到style.css中
-	new ExtractTextPlugin("css/style.css", {
+	new ExtractTextPlugin("style/style.css", {
 		allChunks: true
 	}),
 	// 压缩代码
@@ -60,7 +60,7 @@ module.exports = {
 			test: /\.(png|jpg|gif|svg)$/,
 			loader: 'url',
 			query: {
-				limit: 10000,
+				limit: 20000,
 				name: 'images/[name].[ext]?[hash:7]'
 			}
 		}, {

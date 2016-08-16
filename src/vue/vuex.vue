@@ -12,8 +12,13 @@
 
 <script>
 	
+	//vuex模块
 	import store from '../vuex/store'
 	import { getCount } from '../vuex/getters'
+	
+	//组件模块
+	import Display from '../components/Display.vue'
+	import Increment from '../components/Increment.vue'
 	
 	export default {
 		data () {
@@ -22,8 +27,8 @@
 			}
 		},
 		components: {
-			Display: require('../components/Display.vue'),
-			Increment: require('../components/Increment.vue')
+			Display,
+			Increment
 		},
 		store,
 		vuex: {

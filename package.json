@@ -4,7 +4,7 @@
   "description": "Yolink",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --hot --inline -d",
+    "dev": "webpack-dev-server --progress --colors --hot --inline -d",
     "pro": "webpack --display-modules --display-chunks --config webpack.pro.js"
   },
   "author": "Mov",

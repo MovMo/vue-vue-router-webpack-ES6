@@ -2,28 +2,17 @@ var path = require('path');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CleanPlugin = require('clean-webpack-plugin'); //清理文件夹
 var vue = require("vue-loader");
 
-//定义了一些文件夹的路径
-var ROOT_PATH = path.resolve(__dirname);
-var APP_PATH = path.resolve(ROOT_PATH, 'src/main.js');
-var BUILD_PATH = path.resolve(ROOT_PATH, './build');
-
 var plugins = [
-	//清空输出目录
-    new CleanPlugin(['build'], {
-        "root": path.resolve(__dirname, './'),
-        verbose: true,
-        dry: false
-    }),
     new webpack.optimize.OccurenceOrderPlugin(),
-	//压缩js 
-	// new webpack.optimize.UglifyJsPlugin({minimize: true}),
 	//提公用js到common.js文件中
-	new webpack.optimize.CommonsChunkPlugin('common.js'),
+	new webpack.optimize.CommonsChunkPlugin({
+		name: 'common',
+		filename: 'libs/common.js'
+	}),
 	//将样式统一发布到style.css中
-	new ExtractTextPlugin("style.css", {
+	new ExtractTextPlugin("style/style.css", {
 		allChunks: true
 	}),
 	// 使用 ProvidePlugin 加载使用率高的依赖库
@@ -33,18 +22,18 @@ var plugins = [
 ];
 
 module.exports = {
-	//项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
+	//入口文件
 	entry: {
-		build: APP_PATH
+		app: path.resolve(__dirname, 'src/main.js')
 	},
-	//输出的文件名 合并以后的js会命名为bundle.js
+	//输出的文件名
 	output: {
-		path: BUILD_PATH,
-		filename: '[name].js',
 		// 指向异步加载的路径
-		publicPath : '/build/',
+		publicPath : '/dist/',
+		path: path.resolve(__dirname, './dist'),
+		filename: '[name].js',
 		// 非主文件的命名规则
-		chunkFilename: '[id].build.js?[chunkhash]'
+		chunkFilename: 'components/[id].[chunkhash].js'
 	},
 	module: {
 		loaders: [{
